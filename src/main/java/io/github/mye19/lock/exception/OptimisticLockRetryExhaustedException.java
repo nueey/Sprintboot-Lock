@@ -9,14 +9,14 @@ public class OptimisticLockRetryExhaustedException extends RuntimeException {
 
     public OptimisticLockRetryExhaustedException(int maxRetry, String methodName) {
         super(String.format(
-                "Optimistic lock retry exhausted after %d attempts on method: %s",
+                "Optimistic lock retry exhausted after %d retries on method: %s",
                 maxRetry, methodName
         ));
     }
 
     public OptimisticLockRetryExhaustedException(int maxRetry, String methodName, Throwable cause) {
         super(String.format(
-                "Optimistic lock retry exhausted after %d attempts on method: %s",
+                "Optimistic lock retry exhausted after %d retries on method: %s",
                 maxRetry, methodName
         ), cause);
     }

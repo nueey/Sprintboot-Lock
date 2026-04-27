@@ -6,6 +6,7 @@ import io.github.mye19.lock.aspect.PessimisticLockAspect;
 import io.github.mye19.lock.properties.LockProperties;
 import jakarta.persistence.EntityManager;
 import org.redisson.api.RedissonClient;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -43,10 +44,10 @@ public class LockAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnClass(EntityManager.class)
-    @ConditionalOnBean(EntityManager.class)
+    @ConditionalOnBean({EntityManager.class, PlatformTransactionManager.class})
     @ConditionalOnProperty(prefix = "spring.lock.pessimistic", name = "enabled", havingValue = "true", matchIfMissing = true)
-    public PessimisticLockAspect pessimisticLockAspect(EntityManager entityManager) {
-        return new PessimisticLockAspect(entityManager);
+    public PessimisticLockAspect pessimisticLockAspect(EntityManager entityManager, PlatformTransactionManager transactionManager) {
+        return new PessimisticLockAspect(entityManager, transactionManager);
     }
 
     // ── Optimistic Lock ───────────────────────────────────────────────────────

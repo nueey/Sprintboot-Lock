@@ -6,7 +6,6 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
-import java.lang.reflect.Method;
 
 /**
  * SpEL(Spring Expression Language) 기반 락 키 파서.
@@ -34,7 +33,6 @@ public class SpelKeyParser {
      */
     public static String parse(ProceedingJoinPoint joinPoint, String keyExpression) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        Method method = signature.getMethod();
 
         String[] paramNames = signature.getParameterNames();
         Object[] args = joinPoint.getArgs();

@@ -35,7 +35,7 @@ public class DistributedLockAspect {
     public Object around(ProceedingJoinPoint joinPoint, DistributedLock distributedLock) throws Throwable {
         String resolvedKey = LOCK_PREFIX + SpelKeyParser.parse(joinPoint, distributedLock.key());
 
-        RLock lock = redissonClient.getLock(resolvedKey);
+        RLock lock = redissonClient.getFairLock(resolvedKey);
         boolean acquired = false;
 
         try {
